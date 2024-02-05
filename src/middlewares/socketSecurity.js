@@ -1,11 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 
-function adsSecurity(req, res, next) {
-    if (req.headers['x-socket-key'] === process.env.SOCKET_KEY) {
+function socketSecurity(ws, req, next) {
+    if (req.headers["x-socket-key"] === process.env.SOCKET_KEY) {
         next();
     } else {
-        res.status(403).send({ message: 'Forbidden' });
+        ws.close();
+        return res.status(403).send({ message: "Forbidden" });
     }
 }
 
-module.exports = adsSecurity;
+module.exports = socketSecurity;
