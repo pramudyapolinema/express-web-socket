@@ -63,7 +63,7 @@ app.post(
     }
 );
 
-app.ws("/socket", socketSecurity, function (ws, req) {
+app.ws("/", socketSecurity, function (ws, req) {
     ws.send(
         JSON.stringify({
             status: "OK",

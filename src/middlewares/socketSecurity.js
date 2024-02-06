@@ -1,7 +1,9 @@
 require("dotenv").config();
+var url = require("url");
 
 function socketSecurity(ws, req, next) {
-    if (req.headers["x-socket-key"] === process.env.SOCKET_KEY) {
+    var params = url.parse(req.url, true).query;
+    if (params.token === process.env.SOCKET_KEY) {
         next();
     } else {
         ws.close();
