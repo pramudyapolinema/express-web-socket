@@ -53,7 +53,7 @@ app.post(
             return res.status(400).json({ message: "Error", errors: errors.array() });
         }
         const notification = await db.Notification.create(req.body);
-        expressWs.getWss("/socket").clients.forEach((client) => {
+        expressWs.getWss("/").clients.forEach((client) => {
             client.send(JSON.stringify(notification));
         });
         res.status(200).send({
